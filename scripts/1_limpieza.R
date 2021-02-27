@@ -42,7 +42,7 @@ new_price <- data.frame(producto = products_url$producto,
 track_data <- read_csv("./data/2_output/track_data.csv", col_names = T)
 track_data <- rbind(track_data, new_price)
 
-# Si se duplica un valor; se elimina
+# Si se duplica un valor: se elimina
 if(nrow(track_data) > 1){
   if(track_data$fecha[nrow(track_data)] == track_data$fecha[nrow(track_data) - 1]){
     track_data <- head(track_data, -1)
@@ -50,10 +50,10 @@ if(nrow(track_data) > 1){
 } else {
   next}
 
-# Se escribe el csv para ser guardado con el nuevo precio
+# Se escribe el csv para ser guardado con el precio nuevo
 write_csv(track_data, "./data/2_output/track_data.csv")
 
-# Gráfico ====
+# Visualización ====
 track_data %>%
   ggplot(aes(x = as_date(fecha), y = precio)) +
   geom_point(color = ifelse(track_data$precio < max(track_data$precio), "#FD9A01", "#232F3F")) +
