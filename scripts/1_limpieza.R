@@ -23,7 +23,7 @@ url <- products_url$url[1]
 product <- read_html(url)
 
 
-# Limpierza - Precio ====
+# Limpieza - Precio ====
 price <- product %>%
   html_nodes(xpath = '//*[(@id = "priceblock_ourprice")]') %>%
   html_text() %>%
@@ -58,7 +58,8 @@ track_data %>%
   ggplot(aes(x = as_date(fecha), y = precio)) +
   geom_point(color = ifelse(track_data$precio < max(track_data$precio), "#FD9A01", "#232F3F")) +
   geom_text(aes(label = track_data$precio), vjust = -1, size = 3) +
-  scale_y_continuous(limits = c(1200, 1300)) +
+  geom_line() +
+  scale_y_continuous(limits = c(1200, 1500)) +
   labs(x = "Fecha",
        y = "Precio",
        title = "Adata Swordfish - Price Track") + 
